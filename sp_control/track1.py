@@ -24,10 +24,13 @@ pot_4_prev = None
 pot_5_prev = None
 
 while True:
-    if pot_1 != pot_1_prev or pot_2 != pot_2_prev or pot_3 != pot_3_prev or pot_4 != pot_4_prev or pot_5 != pot_5_prev:
-        sender.send_message('/trigger/prophet', [proper_round(pot_1), proper_round(pot_2 * 10), proper_round(pot_3 + 0.2, 1)])
-        pot_1_prev = pot_1
-        pot_2_prev = pot_2
-        pot_3_prev = pot_3
-        pot_4_prev = pot_4
-        pot_5_prev = pot_5
+    if pot_1.value != pot_1_prev or pot_2.value != pot_2_prev or pot_3.value != pot_3_prev or pot_4.value != pot_4_prev or pot_5.value != pot_5_prev:
+        volume = proper_round(pot_1.value)
+        cutoff = proper_round(pot_2.value * 10)
+        sustain = proper_round(pot_3.value + 0.2, 1)
+        sender.send_message('/trigger/prophet', [volume, cutoff, sustain])
+        pot_1_prev = pot_1.value
+        pot_2_prev = pot_2.value
+        pot_3_prev = pot_3.value
+        pot_4_prev = pot_4.value
+        pot_5_prev = pot_5.value
