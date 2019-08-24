@@ -15,7 +15,7 @@ def proper_round(num, dec=0):
 pot_1 = MCP3008(channel=0)
 pot_2 = MCP3008(channel=1)
 pot_3 = MCP3008(channel=2)
-pot_4 = MCP3008(channel=3)
+pot_4 = MCP3008(channel=4)
 
 volume_prev  = None
 cutoff_prev  = None
@@ -29,6 +29,7 @@ while True:
     pause   = pot_4.value
     if volume != volume_prev or cutoff != cutoff_prev or sustain != sustain_prev:
         sender.send_message('/trigger/prophet', [volume, cutoff, sustain])
+        print(volume, cutoff, sustain, pause)
         volume_prev  = volume
         cutoff_prev  = cutoff
         sustain_prev = sustain
