@@ -21,7 +21,7 @@ f_prev          = None
 
 # p = pyaudio.PyAudio()
 
-fs = 44100 # sampling rate, Hz, must be integer
+fs = 48000 # sampling rate, Hz, must be integer
 
 while True:
     sine_freq_multiplier    = pot_4.value
