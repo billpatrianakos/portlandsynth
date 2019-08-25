@@ -19,16 +19,17 @@ volume_prev     = None
 duration_prev   = None
 f_prev          = None
 
-p = pyaudio.PyAudio()
+# p = pyaudio.PyAudio()
 
 fs = 44100 # sampling rate, Hz, must be integer
 
 while True:
-    pause   = pot_4.value
+    pause    = pot_4.value
     volume   = proper_round(pot_1.value)          # range [0.0, 1.0]
     duration = proper_round(pot_2.value * 10)     # in seconds, may be float
     f        = proper_round(pot_3.value + 0.2, 1) # sine frequency, Hz, may be float
     if volume != volume_prev or duration != duration_prev or f != f_prev:
+        p = pyaudio.PyAudio()
         # generate samples, note conversion to float32 array
         samples = (np.sin(2*np.pi*np.arange(fs*duration)*f/fs)).astype(np.float32)
 
