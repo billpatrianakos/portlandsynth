@@ -24,6 +24,7 @@ f_prev          = None
 fs = 44100 # sampling rate, Hz, must be integer
 
 while True:
+    print(volume, duration, f, pause)
     pause    = pot_4.value
     volume   = proper_round(pot_1.value)          # range [0.0, 1.0]
     duration = proper_round(pot_2.value * 10)     # in seconds, may be float
@@ -49,11 +50,8 @@ while True:
 
         p.terminate()
 
-        print(volume, duration, f, pause)
         volume_prev     = volume
         duration_prev   = duration
         f_prev          = f
         pause_prev      = pause
         # sleep(pause)
-    else:
-        print("No changes. Turn some knobs.")
