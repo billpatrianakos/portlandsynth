@@ -54,6 +54,6 @@ while True:
         duration_prev   = duration
         f_prev          = f
         pause_prev      = pause
-        sleep(pause)
+        # sleep(pause)
     else:
         print("No changes. Turn some knobs.")
