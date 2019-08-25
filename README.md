@@ -13,6 +13,8 @@ Details on how to wire up the Pi and fit it into an enclosure coming soon.
 
 ## Usage
 
+Note: So far only the pysounds folder has anything that actually consistently produces sound in it.
+
 TODO:
 
 - how to run sonic pi headless
