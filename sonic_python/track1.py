@@ -1,9 +1,9 @@
 from gpiozero import MCP3008
-from pythonosc import osc_message_builder
-from pythonosc import udp_client
 from time import sleep
+import random
+from psonic import *
+from threading import Thread
 
-sender = udp_client.SimpleUDPClient('127.0.0.1', 4559)
 
 def proper_round(num, dec=0):
     num = str(num)[:str(num).index('.')+dec+2]
@@ -17,23 +17,28 @@ pot_2 = MCP3008(channel=1)
 pot_3 = MCP3008(channel=2)
 pot_4 = MCP3008(channel=4)
 
-volume_prev  = None
-cutoff_prev  = None
-sustain_prev = None
-pause_prev   = None
+def dsaw():
+    c = chord(E3, MAJOR7)
+    while True:
+        attack = proper_round(pot_1.value, 2)
+        decay  = proper_round(pot_2.value, 1)
+        cutoff = int(proper_round((pot_3.value + 1) * 10))
+        detune = proper_round(pot_4.value, 1)
+        use_synth(DSAW)
+        play(random.choice(c), release=0.6, attack=attack, decay=decay, cutoff=cutoff, detune=detune)
+        sleep(0.5)
+
+
+def snare():
+    while True:
+        sample(ELEC_SNARE)
+        sleep(1)
+
+dsaw_thread = Thread(target=dsaw)
+snare_thread = Thread(target=snare)
+
+dsaw_thread.start()
+snare_thread.start()
 
 while True:
-    volume  = proper_round(pot_1.value)
-    cutoff  = proper_round(pot_2.value * 10)
-    sustain = proper_round(pot_3.value + 0.2, 1)
-    pause   = pot_4.value
-    if volume != volume_prev or cutoff != cutoff_prev or sustain != sustain_prev:
-        sender.send_message('/trigger/prophet', [volume, cutoff, sustain])
-        print(volume, cutoff, sustain, pause)
-        volume_prev  = volume
-        cutoff_prev  = cutoff
-        sustain_prev = sustain
-        pause_prev   = pause
-        sleep(pause)
-    else:
-        print("No changes. Turn some knobs.")
+    pass
