@@ -1,5 +1,6 @@
 from gpiozero import MCP3008
 from time import sleep
+from psonic import *
 
 def proper_round(num, dec=0):
     num = str(num)[:str(num).index('.')+dec+2]
