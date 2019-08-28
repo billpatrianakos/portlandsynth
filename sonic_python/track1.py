@@ -23,9 +23,9 @@ def dsaw():
         attack = proper_round(pot_1.value, 2)
         decay  = proper_round(pot_2.value, 1)
         cutoff = int(proper_round((pot_3.value + 1) * 10))
-        detune = proper_round(pot_4.value, 1)
+        sustain = proper_round(pot_4.value, 1)
         use_synth(DSAW)
-        play(random.choice(c), release=0.6, attack=attack, decay=decay, cutoff=cutoff, detune=detune)
+        play(random.choice(c), release=0.6, attack=attack, decay=decay, cutoff=cutoff, sustain=sustain)
         sleep(0.5)
 
 
