@@ -20,5 +20,5 @@ pot_8 = MCP3008(channel=7)
 
 
 while True:
-    print(pot_1.value, pot_2.value, pot_3.value, pot_4.value, pot_5.value, pot_6.value, pot_7.value, pot_8.value)
+    print(proper_round(pot_1.value, 2), proper_round(pot_2.value, 2), proper_round(pot_3.value, 2), proper_round(pot_4.value, 2), proper_round(pot_5.value, 2), proper_round(pot_6.value, 2), proper_round(pot_7.value, 2), proper_round(pot_8.value, 2))
     sleep(0.5)
