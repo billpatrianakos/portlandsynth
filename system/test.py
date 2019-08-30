@@ -48,14 +48,14 @@ def encoder_2_sw_callback():
 encoder_1 = pyky040.Encoder(CLK=CLK_ONE, DT=DT_ONE, SW=SW_ONE)
 encoder_1.setup(scale_min=0, scale_max=128, step=1, chg_callback=encoder_1_callback, sw_callback=encoder_1_sw_callback)
 
-encoder_1_thread = threading.Thread(target=encoder_1.watch)
+encoder_1_thread = Thread(target=encoder_1.watch)
 encoder_1_thread.start()
 
 # Set up encoder 2
 encoder_2 = pyky040.Encoder(CLK=CLK_TWO, DT=DT_TWO, SW=SW_TWO)
 encoder_2.setup(scale_min=0, scale_max=100, step=1, chg_callback=encoder_2_callback, sw_callback=encoder_2_sw_callback)
 
-encoder_2_thread = threading.Thread(target=encoder_2.watch)
+encoder_2_thread = Thread(target=encoder_2.watch)
 encoder_2_thread.start()
 
 
