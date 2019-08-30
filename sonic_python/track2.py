@@ -12,7 +12,11 @@ def proper_round(num, dec=0):
 pot_1 = MCP3008(channel=0)
 pot_2 = MCP3008(channel=1)
 pot_3 = MCP3008(channel=2)
-pot_4 = MCP3008(channel=4)
+pot_4 = MCP3008(channel=3)
+pot_5 = MCP3008(channel=4)
+pot_6 = MCP3008(channel=5)
+pot_7 = MCP3008(channel=6)
+pot_8 = MCP3008(channel=7)
 
 while True:
     attack  = pot_1.value
