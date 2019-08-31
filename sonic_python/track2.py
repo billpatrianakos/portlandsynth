@@ -35,7 +35,12 @@ def encoder_2_sw_callback():
 # Incrementer callbacks for encoders
 def encoder_1_inc(scale_position):
     global enc1
-    enc1 += 1
+    i = enc1
+    if i >= 127:
+        i = 127
+    else:
+        i = i + 1
+    enc1 = i
 
 def encoder_2_inc(scale_position):
     global enc2
@@ -44,7 +49,12 @@ def encoder_2_inc(scale_position):
 # Decrement callbacks for encoders
 def encoder_1_dec(scale_position):
     global enc1
-    enc1 -= 1
+    i = enc1
+    if i <= 1:
+        i = 1
+    else:
+        i = i + 1
+    enc1 = i
 
 def encoder_2_dec(scale_position):
     global enc2
@@ -52,7 +62,7 @@ def encoder_2_dec(scale_position):
 
 # Set up encoder 1
 encoder_1 = pyky040.Encoder(CLK=CLK_ONE, DT=DT_ONE, SW=SW_ONE)
-encoder_1.setup(scale_min=0, scale_max=128, step=1, inc_callback=encoder_1_inc, dec_callback=encoder_1_dec, sw_callback=encoder_1_sw_callback)
+encoder_1.setup(scale_min=1, scale_max=127, step=1, inc_callback=encoder_1_inc, dec_callback=encoder_1_dec, sw_callback=encoder_1_sw_callback)
 
 encoder_1_thread = Thread(target=encoder_1.watch)
 encoder_1_thread.start()
@@ -88,12 +98,10 @@ while True:
     note2 = note1 + 3
     note3 = note2 + 4
 
-    if note1 < 1:
-        note1 = 1
-
     use_synth(SAW)
     play(note1, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
     sleep(0.5)
     play(note2, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
     sleep(1)
     play(note3, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
+    sleep(0.5)
