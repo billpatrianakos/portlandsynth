@@ -53,16 +53,17 @@ def encoder_2_dec(scale_position):
 # Set up encoder 1
 encoder_1 = pyky040.Encoder(CLK=CLK_ONE, DT=DT_ONE, SW=SW_ONE)
 encoder_1.setup(scale_min=0, scale_max=128, step=1, inc_callback=encoder_1_inc, dec_callback=encoder_1_dec, sw_callback=encoder_1_sw_callback)
+encoder_1.watch()
 
-encoder_1_thread = Thread(target=encoder_1.watch)
-encoder_1_thread.start()
+# encoder_1_thread = Thread(target=encoder_1.watch)
+# encoder_1_thread.start()
 
 # Set up encoder 2
-encoder_2 = pyky040.Encoder(CLK=CLK_TWO, DT=DT_TWO, SW=SW_TWO)
-encoder_2.setup(scale_min=0, scale_max=100, step=1, inc_callback=encoder_2_inc, dec_callback=encoder_2_dec, sw_callback=encoder_2_sw_callback)
+# encoder_2 = pyky040.Encoder(CLK=CLK_TWO, DT=DT_TWO, SW=SW_TWO)
+# encoder_2.setup(scale_min=0, scale_max=100, step=1, inc_callback=encoder_2_inc, dec_callback=encoder_2_dec, sw_callback=encoder_2_sw_callback)
 
-encoder_2_thread = Thread(target=encoder_2.watch)
-encoder_2_thread.start()
+# encoder_2_thread = Thread(target=encoder_2.watch)
+# encoder_2_thread.start()
 
 # Get readings from MCP3008 channels
 pot_1 = MCP3008(channel=0)
@@ -82,7 +83,6 @@ while True:
     release       = pot_4.value
     sustain_level = pot_5.value
     sleep1        = pot_6.value
-    sleep2        = enc2
 
     # Rotary encoder driven controls
     note1 = enc1
@@ -91,14 +91,6 @@ while True:
 
     if note1 < 1:
         note1 = 1
-
-    if sleep2 > 4:
-        enc2 = 4
-        sleep2 = 4
-
-    if sleep2 < 1:
-        enc2 = 0
-        sleep2 = 0.5
 
     use_synth(SAW)
     play(note1, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
