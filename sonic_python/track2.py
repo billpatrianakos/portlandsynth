@@ -53,7 +53,7 @@ def encoder_1_dec(scale_position):
     if i <= 1:
         i = 1
     else:
-        i = i + 1
+        i = i - 1
     enc1 = i
 
 def encoder_2_dec(scale_position):
@@ -101,6 +101,7 @@ while True:
     use_synth(SAW)
     play(note1, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
     sleep(0.5)
+    # print(attack, decay, sustain, release, sustain_level, note1)
     play(note2, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
     sleep(1)
     play(note3, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
