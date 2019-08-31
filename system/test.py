@@ -25,7 +25,7 @@ def proper_round(num, dec=0):
     return float(num[:-1])
 
 
-# Callbacks to increment encoder
+# Callbacks to change encoder to scale position
 def encoder_1_callback(scale_position):
     global enc1
     enc1 = scale_position
@@ -33,6 +33,24 @@ def encoder_1_callback(scale_position):
 def encoder_2_callback(scale_position):
     global enc2
     enc2 = scale_position
+
+# Incrementer callbacks for encoders
+def encoder_1_inc(scale_position):
+    global enc1
+    enc1 += 1
+
+def encoder_2_inc(scale_position):
+    global enc2
+    enc2 += 1
+
+# Decrement callbacks for encoders
+def encoder_1_dec(scale_position):
+    global enc1
+    enc1 -= 1
+
+def encoder_2_dec(scale_position):
+    global enc2
+    enc2 -= 1
 
 
 # Callbacks to reset encoders
@@ -46,14 +64,14 @@ def encoder_2_sw_callback():
 
 # Set up encoder 1
 encoder_1 = pyky040.Encoder(CLK=CLK_ONE, DT=DT_ONE, SW=SW_ONE)
-encoder_1.setup(scale_min=0, scale_max=128, step=1, chg_callback=encoder_1_callback, sw_callback=encoder_1_sw_callback)
+encoder_1.setup(scale_min=0, scale_max=128, step=1, inc_callback=encoder_1_inc, dec_callback=encoder_1_dec, sw_callback=encoder_1_sw_callback)
 
 encoder_1_thread = Thread(target=encoder_1.watch)
 encoder_1_thread.start()
 
 # Set up encoder 2
 encoder_2 = pyky040.Encoder(CLK=CLK_TWO, DT=DT_TWO, SW=SW_TWO)
-encoder_2.setup(scale_min=0, scale_max=100, step=1, chg_callback=encoder_2_callback, sw_callback=encoder_2_sw_callback)
+encoder_2.setup(scale_min=0, scale_max=100, step=1, inc_callback=encoder_2_inc, dec_callback=encoder_2_dec, sw_callback=encoder_2_sw_callback)
 
 encoder_2_thread = Thread(target=encoder_2.watch)
 encoder_2_thread.start()
