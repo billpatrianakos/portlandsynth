@@ -92,6 +92,14 @@ while True:
     if note1 < 1:
         note1 = 1
 
+    if sleep2 > 4:
+        enc2 = 4
+        sleep2 = 4
+
+    if sleep2 < 1:
+        enc2 = 0
+        sleep2 = 0.5
+
     use_synth(SAW)
     play(note1, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
     sleep(proper_round(sleep1, 1))
