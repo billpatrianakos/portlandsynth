@@ -53,10 +53,9 @@ def encoder_2_dec(scale_position):
 # Set up encoder 1
 encoder_1 = pyky040.Encoder(CLK=CLK_ONE, DT=DT_ONE, SW=SW_ONE)
 encoder_1.setup(scale_min=0, scale_max=128, step=1, inc_callback=encoder_1_inc, dec_callback=encoder_1_dec, sw_callback=encoder_1_sw_callback)
-encoder_1.watch()
 
-# encoder_1_thread = Thread(target=encoder_1.watch)
-# encoder_1_thread.start()
+encoder_1_thread = Thread(target=encoder_1.watch)
+encoder_1_thread.start()
 
 # Set up encoder 2
 # encoder_2 = pyky040.Encoder(CLK=CLK_TWO, DT=DT_TWO, SW=SW_TWO)
