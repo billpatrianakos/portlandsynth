@@ -14,7 +14,7 @@ DT_TWO  = 6
 SW_TWO  = 13
 
 # Define some global variables to hold encoder state
-enc1 = 0
+enc1 = 1
 enc2 = 0
 
 def proper_round(num, dec=0):
@@ -26,7 +26,7 @@ def proper_round(num, dec=0):
 # Callbacks to reset encoders
 def encoder_1_sw_callback():
     global enc1
-    enc1 = 0
+    enc1 = 1
 
 def encoder_2_sw_callback():
     global enc2
