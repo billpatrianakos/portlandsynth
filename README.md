@@ -9,7 +9,13 @@ The idea is that you can generate music one of two ways:
 1. Play Sonic Pi music through Python scripts and manipulate the sound in real time with the values read from some potentiometers.
 2. Run a Python script that generates a waveform and play it through `aplay`
 
-Details on how to wire up the Pi and fit it into an enclosure coming soon.
+## Wiring it up
+
+I had limited materials to work with. You can wire it up however you like but this is how it is currently working with 8 potentiometers and 2 rotary encoders.
+
+![Breadboard Image](https://github.com/billpatrianakos/portlandsynth/raw/master/docs/portland_synth_bb.png)
+
+TODO: In depth explanation of wiring and which GPIO controls what part.
 
 ## Installation
 
