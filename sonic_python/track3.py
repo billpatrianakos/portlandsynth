@@ -58,7 +58,7 @@ def next_synth():
     if synth >= (len(synths) - 1):
         print('Synth limit reached')
         synth = len(synths) - 1
-    elif synth <= 0:
+    elif synth < 0:
         print('Synth tried to drop below 0')
         synth = 0
     else:
