@@ -21,8 +21,8 @@ SW_TWO  = 13
 note = 1
 def note_up():
     print('Note up')
-    print(note)
     global note
+    print(note)
     if (note + 1) >= 127:
         print('Upper note limit reached')
         note = 127
@@ -31,8 +31,8 @@ def note_up():
 
 def note_down():
     print('Note down')
-    print(note)
     global note
+    print(note)
     if (note - 1) <= 1:
         print('Lower note limit reached')
         note = 1
