@@ -85,7 +85,7 @@ def calculate_note(note_number, interval):
         return final_note
 
 # Set up synth select encoder
-synth_encoder = rotary.Rotary(CLK_TWO, DT_TWO, SW_TWO, 2)
+synth_encoder = rotary.Rotary(CLK_TWO, DT_TWO, SW_TWO, 1)
 synth_encoder.register(increment=next_synth, decrement=last_synth, pressed=reset_synth)
 synth_encoder.start()
 
