@@ -21,17 +21,17 @@ SW_TWO  = 13
 note = 1
 def note_up():
     global note
-    if note == 127:
-        pass
-    elif note == 0:
-        note = 1
+    if (note + 1) >= 127:
+        print('Upper note limit reached')
+        note = 127
     else:
         note += 1
 
 def note_down():
     global note
-    if note == 1:
-        pass
+    if (note - 1) <= 1:
+        print('Lower note limit reached')
+        note = 1
     else:
         note -= 1
 
@@ -45,10 +45,12 @@ note_encoder.register(increment=note_up, decrement=note_down, pressed=reset_note
 note_encoder.start()
 
 synth = 0
+synths = [DULL_BELL, PRETTY_BELL, SINE, SQUARE, PULSE, SUBPULSE, DTRI, DPULSE, FM, MOD_FM, MOD_SAW, MOD_DSAW, MOD_SINE, MOD_TRI, MOD_PULSE, SUPERSAW, HOOVER, SYNTH_VIOLIN, PLUCK, PIANO, GROWL, DARK_AMBIENCE, DARK_SEA_HORN, HOLLOW, ZAWA, NOISE, GNOISE, BNOISE, CNOISE, DSAW, TB303, BLADE, PROPHET, SAW, BEEP, TRI, CHIPLEAD, CHIPBASS, CHIPNOISE, TECHSAWS, SOUND_IN, SOUND_IN_STEREO]
+
 def next_synth():
     global synth
-    if synth >= 8:
-        pass
+    if synth >= (len(synths) - 1):
+        synth = len(synths) - 1
     else:
         synth += 1
 
@@ -62,6 +64,15 @@ def last_synth():
 def reset_synth():
     global synth
     synth = 0
+
+# Calculates note based on interval.
+# More importantly it makes sure the interval doesn't go past note 127
+def calculate_note(note_number, interval):
+    final_note = note_number + interval
+    if final_note > 127:
+        return 127
+    else:
+        return final_note
 
 # Set up synth select encoder
 synth_encoder = rotary.Rotary(CLK_TWO, DT_TWO, SW_TWO, 2)
@@ -89,80 +100,13 @@ while True:
     interval_2    = pot_7.value
 
     note1 = note
-    note2 = note + int(proper_round(interval_1 * 10))
-    note3 = note2 + int(proper_round(interval_2 * 10))
+    note2 = calculate_note(note, int(proper_round(interval_1 * 10)))
+    note3 = calculate_note(note2, int(proper_round(interval_2 * 10)))
 
-    if synth == 0:
-        use_synth(SAW)
-        play(note1, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-        play(note2, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(1)
-        play(note3, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-    elif synth == 1:
-        use_synth(MOD_FM)
-        play(note1, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-        play(note2, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(1)
-        play(note3, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-    elif synth == 2:
-        use_synth(MOD_TRI)
-        play(note1, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-        play(note2, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(1)
-        play(note3, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-    elif synth == 3:
-        use_synth(GROWL)
-        play(note1, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-        play(note2, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(1)
-        play(note3, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-    elif synth == 4:
-        use_synth(HOLLOW)
-        play(note1, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-        play(note2, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(1)
-        play(note3, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-    elif synth == 5:
-        use_synth(BLADE)
-        play(note1, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-        play(note2, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(1)
-        play(note3, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-    elif synth == 6:
-        use_synth(BLADE)
-        play(note1, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-        play(note2, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(1)
-        play(note3, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-    elif synth == 7:
-        use_synth(CHIPNOISE)
-        play(note1, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-        play(note2, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(1)
-        play(note3, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-    elif synth == 8:
-        use_synth(DSAW)
-        play(note1, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-        play(note2, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(1)
-        play(note3, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
-        sleep(0.5)
-    else:
-        print(attack, decay, sustain, release, sustain_level, interval_1, interval_2, note1, note2, note3)
+    use_synth(synths[synth])
+    play(note1, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
+    sleep(0.5)
+    play(note2, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
+    sleep(1)
+    play(note3, attack=proper_round(attack, 1), decay=int(proper_round(decay)), sustain_level=proper_round(sustain_level, 1), sustain=int(proper_round(sustain)), release=proper_round(release, 1))
+    sleep(0.5)
