@@ -45,7 +45,7 @@ def reset_note():
     note = 1
 
 # Set up note encoder to choose notes
-note_encoder = rotary.Rotary(CLK_ONE, DT_ONE, SW_ONE, 2)
+note_encoder = rotary.Rotary(CLK_ONE, DT_ONE, SW_ONE, 1)
 note_encoder.register(increment=note_up, decrement=note_down, pressed=reset_note)
 note_encoder.start()
 
@@ -54,8 +54,13 @@ synths = [DULL_BELL, PRETTY_BELL, SINE, SQUARE, PULSE, SUBPULSE, DTRI, DPULSE, F
 
 def next_synth():
     global synth
+    print(synth)
     if synth >= (len(synths) - 1):
+        print('Synth limit reached')
         synth = len(synths) - 1
+    elif synth <= 0:
+        print('Synth tried to drop below 0')
+        synth = 0
     else:
         synth += 1
 
