@@ -21,9 +21,9 @@ DT_TWO  = 6
 SW_TWO  = 13
 
 # Set up chord and style switching on encoder 1
-chords       = ['Cs', 'Db', 'D', 'Ds', 'Eb', 'E', 'F', 'Fs', 'Gb', 'G', 'Gs', 'Ab', 'A', 'As', 'Bb', 'B']
+all_chords   = ['Cs', 'Db', 'D', 'Ds', 'Eb', 'E', 'F', 'Fs', 'Gb', 'G', 'Gs', 'Ab', 'A', 'As', 'Bb', 'B']
 chord_styles = ['major', 'minor', 'major7', 'dom7', 'minor7', 'aug', 'dim', 'dim7', '1', "5", "+5", "m+5", "sus2", "sus4", "6", "m6", "7sus2", "7sus4", "7-5", "m7-5", "7+5", "m7+5", "9", "m9", "m7+9", "maj9", "9sus4", "6*9", "m6*9", "7-9", "m7-9", "7-10", "9+5", "m9+5", "7+5-9", "m7+5-9", "11", "m11", "maj11", "11+", "m11+", "13", "m13", "M", "m", "7", "M7", "m7", "augmented", "a", "diminished", "i", "diminished7", "i7"]
-max_chords   = len(chords) - 1
+max_chords   = len(all_chords) - 1
 max_styles   = len(chord_styles) - 1
 
 selected_chord = 0
@@ -100,11 +100,11 @@ while True:
     sleep_time = pot_7.value
     use_synth(synths[synth])
     print(proper_round(sleep_time, 1))
-    play(chord(chords[selected_chord], chord_styles[selected_style]))
+    play(chord(all_chords[selected_chord], chord_styles[selected_style]))
     sleep(proper_round(sleep_time, 1))
-    play(chord(chords[selected_chord], chord_styles[selected_style], inversion=inversion))
+    play(chord(all_chords[selected_chord], chord_styles[selected_style], inversion=inversion))
     sleep(proper_round(sleep_time, 1))
-    play(chord(chords[selected_chord], chord_styles[selected_style], inversion=inversion))
+    play(chord(all_chords[selected_chord], chord_styles[selected_style], inversion=inversion))
     sleep(proper_round(sleep_time, 1))
-    play(chord(chords[selected_chord], chord_styles[selected_style]))
+    play(chord(all_chords[selected_chord], chord_styles[selected_style]))
     sleep(proper_round(sleep_time, 1))
