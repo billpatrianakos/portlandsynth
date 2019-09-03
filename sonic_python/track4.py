@@ -100,6 +100,7 @@ while True:
     sleep_time = pot_7.value
     use_synth(synths[synth])
     print(proper_round(sleep_time, 1))
+    print(all_chords[selected_chord], chord_styles[selected_style], inversion)
     play(chord(all_chords[selected_chord], chord_styles[selected_style]))
     sleep(proper_round(sleep_time, 1))
     play(chord(all_chords[selected_chord], chord_styles[selected_style], inversion=inversion))
