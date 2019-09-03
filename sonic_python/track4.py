@@ -3,11 +3,7 @@
 from gpiozero import MCP3008
 from time import sleep
 from psonic import *
-from pigpio_encoder import pigpio_encoder
-# sudo apt-get install pigpio python-pigpio python3-pigpio
-# pip install pigpio_encoder
-# sudo systemctl enable pigpiod # to enable pigpiod at startup
-# sudo pigpiod # to start manually
+from RPi_GPIO_Rotary import rotary
 
 def proper_round(num, dec=0):
     num = str(num)[:str(num).index('.')+dec+2]
@@ -33,9 +29,9 @@ max_styles   = len(chord_styles) - 1
 selected_chord = 0
 selected_style = 0
 
-def chord_change_callback(counter):
+def chord_change_callback():
     global selected_chord
-    selected_chord = counter
+    selected_chord += 1
     print('Selected chord: ', selected_chord)
 
 def next_style():
@@ -55,11 +51,11 @@ def previous_style():
         selected_style -= 1
         print('Selected style: ', selected_style)
 
-chord_encoder = pigpio_encoder.Rotary(clk=CLK_ONE, dt=DT_ONE, sw=SW_ONE)
-chord_encoder.setup_rotary(min=0, max=max_chords, scale=1, debounce=300, rotary_callback=chord_change_callback)
-chord_encoder.setup_switch(debounce=300, long_press=True, sw_short_callback=next_style, sw_long_callback=previous_style)
+# Set up chord encoder to choose chords
+chord_encoder = rotary.Rotary(CLK_ONE, DT_ONE, SW_ONE, 2)
+chord_encoder.register(increment=next_style, decrement=previous_style, pressed=chord_change_callback)
+chord_encoder.start()
 
-chord_encoder.watch()
 
 # Set up synth switching on encoder 2
 synth = 0
@@ -67,9 +63,9 @@ synths = [DULL_BELL, PRETTY_BELL, SINE, SQUARE, PULSE, SUBPULSE, DTRI, DPULSE, F
 max_synths = len(synths) - 1
 inversion = 1
 
-def synth_change_callback(counter):
+def synth_change_callback():
     global synth
-    synth = counter
+    synth += 1
     print('Selected synth: ', synths[synth])
 
 def next_inversion():
@@ -85,21 +81,20 @@ def previous_inversion():
         inversion -= 1
         print('Inversion: ', inversion)
 
-synth_encoder = pigpio_encoder.Rotary(clk=CLK_TWO, dt=DT_TWO, sw=SW_TWO)
-synth_encoder.setup_rotary(min=0, max=max_synths, scale=1, debounce=300, rotary_callback=synth_change_callback)
-synth_encoder.setup_switch(debounce=300, long_press=True, sw_short_callback=next_inversion, sw_long_callback=previous_inversion)
-
-synth_encoder.watch()
+# Set up synth encoder to choose synth
+synth_encoder = rotary.Rotary(CLK_TWO, DT_TWO, SW_TWO, 2)
+synth_encoder.register(increment=next_inversion, decrement=previous_inversion, pressed=synth_change_callback)
+synth_encoder.start()
 
 # Read from the pots
-pot_1 = MCP3008(channel=0)
-pot_2 = MCP3008(channel=1)
-pot_3 = MCP3008(channel=2)
-pot_4 = MCP3008(channel=3)
-pot_5 = MCP3008(channel=4)
-pot_6 = MCP3008(channel=5)
+# pot_1 = MCP3008(channel=0)
+# pot_2 = MCP3008(channel=1)
+# pot_3 = MCP3008(channel=2)
+# pot_4 = MCP3008(channel=3)
+# pot_5 = MCP3008(channel=4)
+# pot_6 = MCP3008(channel=5)
 pot_7 = MCP3008(channel=6)
-pot_8 = MCP3008(channel=7)
+# pot_8 = MCP3008(channel=7)
 
 while True:
     sleep_time = pot_7.value
