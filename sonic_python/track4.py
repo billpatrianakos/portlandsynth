@@ -70,7 +70,7 @@ inversion = 1
 def synth_change_callback(counter):
     global synth
     synth = counter
-    print('Selected synth: ', synth)
+    print('Selected synth: ', synths[synth])
 
 def next_inversion():
     global inversion
@@ -103,6 +103,7 @@ pot_8 = MCP3008(channel=7)
 
 while True:
     sleep_time = pot_7.value
+    use_synth(synths[synth])
     print(proper_round(sleep_time, 1))
     play(chord(chords[selected_chord], chord_styles[selected_style]))
     sleep(proper_round(sleep_time, 1))
