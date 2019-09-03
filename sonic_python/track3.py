@@ -20,7 +20,9 @@ SW_TWO  = 13
 
 note = 1
 def note_up():
+    print('Note up')
     global note
+    print(note)
     if (note + 1) >= 127:
         print('Upper note limit reached')
         note = 127
@@ -28,7 +30,9 @@ def note_up():
         note += 1
 
 def note_down():
+    print('Note down')
     global note
+    print(note)
     if (note - 1) <= 1:
         print('Lower note limit reached')
         note = 1
@@ -36,11 +40,12 @@ def note_down():
         note -= 1
 
 def reset_note():
+    print('Reset note')
     global note
     note = 1
 
 # Set up note encoder to choose notes
-note_encoder = rotary.Rotary(CLK_ONE, DT_ONE, SW_ONE, 2)
+note_encoder = rotary.Rotary(CLK_ONE, DT_ONE, SW_ONE, 1)
 note_encoder.register(increment=note_up, decrement=note_down, pressed=reset_note)
 note_encoder.start()
 
@@ -49,8 +54,13 @@ synths = [DULL_BELL, PRETTY_BELL, SINE, SQUARE, PULSE, SUBPULSE, DTRI, DPULSE, F
 
 def next_synth():
     global synth
+    print(synth)
     if synth >= (len(synths) - 1):
+        print('Synth limit reached')
         synth = len(synths) - 1
+    elif synth < 0:
+        print('Synth tried to drop below 0')
+        synth = 0
     else:
         synth += 1
 
@@ -75,7 +85,7 @@ def calculate_note(note_number, interval):
         return final_note
 
 # Set up synth select encoder
-synth_encoder = rotary.Rotary(CLK_TWO, DT_TWO, SW_TWO, 2)
+synth_encoder = rotary.Rotary(CLK_TWO, DT_TWO, SW_TWO, 1)
 synth_encoder.register(increment=next_synth, decrement=last_synth, pressed=reset_synth)
 synth_encoder.start()
 
