@@ -13,7 +13,7 @@ def proper_round(num, dec=0):
 pot_1 = MCP3008(channel=0)
 pot_2 = MCP3008(channel=1)
 pot_3 = MCP3008(channel=2)
-pot_4 = MCP3008(channel=4)
+pot_4 = MCP3008(channel=3)
 
 p = pyaudio.PyAudio()
 
