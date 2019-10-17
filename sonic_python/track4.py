@@ -99,9 +99,16 @@ pot_8 = MCP3008(channel=7)
 while True:
     sleep_time = pot_7.value
     octave     = int(proper_round(pot_8.value * 10))
+
+    if octave == 0:
+        octave = 1
+    elif octave > 8:
+        octave = 8
+
     use_synth(synths[synth])
     print(proper_round(sleep_time, 1))
     print(all_chords[selected_chord] + str(octave), chord_styles[selected_style], inversion)
+
     play(all_chords[selected_chord] + str(octave), chord_styles[selected_style])
     sleep(proper_round(sleep_time, 1))
     play(all_chords[selected_chord], chord_styles[selected_style])
