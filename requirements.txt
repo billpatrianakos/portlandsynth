@@ -1,6 +1,6 @@
 colorzero==1.1
 gpiozero==1.5.1
-numpy==1.17.1
+numpy==1.22.0
 PyAudio==0.2.11
 python-osc==1.7.2
 python-sonic==0.3.0
